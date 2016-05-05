@@ -1,0 +1,54 @@
+[
+    {
+        "name": "pyblish-base",
+        "repository": "https://github.com/pyblish/pyblish-base.git"
+    },
+    {
+        "name": "pyblish-qml",
+        "repository": "https://github.com/pyblish/pyblish-qml.git"
+    },
+    {
+        "name": "pyblish-rpc",
+        "repository": "https://github.com/pyblish/pyblish-rpc.git"
+    },
+    {
+        "name": "pyblish-integration",
+        "repository": "https://github.com/pyblish/pyblish-integration.git"
+    },
+    {
+        "name": "pyblish-tray",
+        "repository": "https://github.com/pyblish/pyblish-tray.git"
+    },
+    {
+        "name": "pyblish-standalone",
+        "repository": "https://github.com/pyblish/pyblish-standalone.git"
+    },
+    {
+        "name": "pyblish-hiero",
+        "repository": "https://github.com/pyblish/pyblish-hiero.git"
+    },
+    {
+        "name": "pyblish-nuke",
+        "repository": "https://github.com/pyblish/pyblish-nuke.git"
+    },
+    {
+        "name": "pyblish-maya",
+        "repository": "https://github.com/pyblish/pyblish-maya.git"
+    },
+    {
+        "name": "pyblish-ftrack",
+        "repository": "https://github.com/pyblish/pyblish-ftrack.git"
+    },
+    {
+        "name": "pyblish-houdini",
+        "repository": "https://github.com/pyblish/pyblish-houdini.git"
+    },
+    {
+        "name": "pyblish-deadline",
+        "repository": "https://github.com/pyblish/pyblish-deadline.git"
+    },
+    {
+        "name": "pyblish-bumpybox",
+        "repository": "https://github.com/Bumpybox/pyblish-bumpybox.git"
+    }
+]
