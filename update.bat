@@ -1,3 +1,3 @@
 cd %~dp0
 start /W git pull
-python %~dp0/repositories.py
+%~dp0/vendors/Python27/python.exe %~dp0/repositories.py
