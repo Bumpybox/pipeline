@@ -1,0 +1,22 @@
+name: pipeline
+dependencies:
+- git=2.6.4=0
+- pip=8.1.1=py27_1
+- python=2.7.11=4
+- setuptools=20.7.0=py27_0
+- vs2008_runtime=9.00.30729.1=0
+- wheel=0.29.0=py27_0
+- pip:
+  - "--editable=git+https://github.com/pyblish/pyblish-base.git#egg=pyblish-base"
+  - "--editable=git+https://github.com/pyblish/pyblish-qml.git#egg=pyblish-qml"
+  - "--editable=git+https://github.com/pyblish/pyblish-rpc.git#egg=pyblish-rpc"
+  - "--editable=git+https://github.com/pyqt/python-qt5.git#egg=python-qt5"
+  - "--editable=git+https://github.com/pyblish/pyblish-integration.git#egg=pyblish-integration"
+  - "--editable=git+https://github.com/pyblish/pyblish-standalone.git#egg=pyblish-standalone"
+  - "--editable=git+https://github.com/pyblish/pyblish-nuke.git#egg=pyblish-nuke"
+  - "--editable=git+https://github.com/pyblish/pyblish-maya.git#egg=pyblish-maya"
+  - "--editable=git+https://github.com/pyblish/pyblish-ftrack.git#egg=pyblish-ftrack"
+  - "--editable=git+https://github.com/pyblish/pyblish-deadline.git#egg=pyblish-deadline"
+  - "--editable=git+https://github.com/Bumpybox/pyblish-bumpybox#egg=pyblish-bumpybox"
+  - "--editable=git+https://github.com/tokejepsen/ftrack-event-server.git#egg=ftrack-event-server"
+  - "--editable=git+https://github.com/tokejepsen/ftrack-event-plugins.git#egg=ftrack-event-plugins"
