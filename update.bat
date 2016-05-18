@@ -8,9 +8,11 @@ IF EXIST %~dp0miniconda GOTO INSTALLEXISTS
 %~dp0miniconda.exe /RegisterPython=0 /AddToPath=0 /S /D=%~dp0miniconda
 :INSTALLEXISTS
 
-set PATH=%~dp0miniconda;%~dp0miniconda\Scripts
+set PATH=%~dp0miniconda;%~dp0miniconda\Scripts;%PATH%
 
-conda install git -y
-start /W %~dp0miniconda\Library\bin\git.exe pull
+REM creates a known environment to use git from
+conda env create --force -f %~dp0git_environment.yml
+start /W %~dp0miniconda\envs\git_env\Library\bin\git.exe pull
+conda env remove -n git_env -y
 
-conda env create -f %~dp0environment.yml
+conda env create --force -f %~dp0environment.yml
