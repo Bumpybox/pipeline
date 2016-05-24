@@ -1,3 +1,3 @@
-set PATH=%~dp0miniconda\envs\pipeline;%~dp0miniconda\envs\pipeline\Scripts;%~dp0miniconda\envs\pipeline\Library\cmd
-
+set PATH=%~dp0miniconda;%~dp0miniconda\Scripts
+call activate pipeline
 python %~dp0atom_launch.py
