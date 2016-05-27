@@ -1,13 +1,13 @@
 cd %~dp0
 
-call conda_environment
+call conda_env
 
 conda env create -f environments\ftrack-connect.yml
 
 call activate ftrack-connect
 
-call ftrack_connect_environment
-
+set PYTHONPATH=%PYTHONPATH;%~dp0..\pythonpath
+set FTRACK_CONNECT_PLUGIN_PATH=%FTRACK_CONNECT_PLUGIN_PATH%;%CONDA_DEFAULT_ENV%
 goto commentout
 pip install git+https://bitbucket.org/ftrack/ftrack-connect.git
 
@@ -26,4 +26,4 @@ pip install git+https://bitbucket.org/ftrack/ftrack-connect-premiere.git
 
 python -m ftrack_connect
 :commentout
-pause
+start cmd
