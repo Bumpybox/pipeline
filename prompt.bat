@@ -1,5 +1,5 @@
 cd %~dp0
 
-set PATH=%~dp0miniconda;%~dp0miniconda\Scripts
+call conda_environment
 
-start cmd /k activate pipeline
+start cmd

@@ -9,19 +9,3 @@ IF EXIST %~dp0miniconda GOTO INSTALLEXISTS
 :INSTALLEXISTS
 
 set PATH=%~dp0miniconda;%~dp0miniconda\Scripts;%PATH%
-
-REM creates a known environment to use git from
-IF EXIST %~dp0miniconda/envs/git GOTO GITEXISTS
-conda env create --force -f %~dp0environments/git.yml
-:GITEXISTS
-
-REM updating repo
-start /W %~dp0miniconda\envs\git\Library\bin\git.exe pull
-
-REM create requested environment
-if "%1"=="" goto NOARGUMENTS
-conda env create --force -f %1
-exit
-:NOARGUMENTS
-
-conda env create --force -f %~dp0environments/pipeline.yml
