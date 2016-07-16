@@ -1,7 +1,7 @@
-cd %~dp0..
+call "%~dp0..\environments\conda_env"
 
-call environments\conda_env
+conda create -n atom -y python
 
-call activate pipeline
+call activate atom
 
 python %~dp0atom.py

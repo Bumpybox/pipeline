@@ -1,6 +1,9 @@
 import os
 import subprocess
 
+# installing flake8
+subprocess.call(['pip', 'install', 'flake8'])
+
 # finding all source modules
 root = os.path.dirname(os.path.dirname(__file__))
 paths = [root]
