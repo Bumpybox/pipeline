@@ -44,32 +44,40 @@ dst = os.path.join(os.path.dirname(os.path.dirname(__file__)), "miniconda",
 if not os.path.exists(os.path.dirname(dst)):
     os.makedirs(os.path.dirname(dst))
 
-f = open(dst, "w")
+f = None
+if os.path.exists(dst):
+    f = open(dst, "a")
+else:
+    f = open(dst, "w")
 
-python_path = r"set PYTHONPATH=%PYTHONPATH%;%~dp0..\..\..\..\..\..\pythonpath;"
-python_path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-nuke\source;"
-python_path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect\source;"
-python_path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-foundry\source;"
-python_path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-maya\source;"
-python_path += r"%~dp0..\..\..\Lib\site-packages"
+path = r"set PYTHONPATH=%PYTHONPATH%;%~dp0..\..\..\..\..\..\pythonpath;"
+path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-nuke\source;"
+path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect\source;"
+path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-foundry\source;"
+path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-maya\source;"
+path += r"%~dp0..\..\..\Lib\site-packages"
 
-plugin_path = r"set FTRACK_CONNECT_PLUGIN_PATH=%FTRACK_CONNECT_PLUGIN_PATH%;"
-plugin_path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect;"
-plugin_path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-foundry;"
-plugin_path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-nuke;"
-plugin_path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-maya;"
-plugin_path += r"%~dp0..\..\..\..\..\..\environments"
-
-nuke_plugin = r"set FTRACK_CONNECT_NUKE_PLUGINS_PATH="
-nuke_plugin += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-nuke\resource"
-
-maya_plugin = r"set FTRACK_CONNECT_MAYA_PLUGINS_PATH="
-maya_plugin += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-maya\resource"
-
-f.write(python_path)
+f.write(path)
 f.write("\n")
-f.write(plugin_path)
+
+path = r"set FTRACK_CONNECT_PLUGIN_PATH=%FTRACK_CONNECT_path%;"
+path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect;"
+path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-foundry;"
+path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-nuke;"
+path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-maya;"
+path += r"%~dp0..\..\..\..\..\..\environments"
+
+f.write(path)
 f.write("\n")
-f.write(nuke_plugin)
+
+path = r"set FTRACK_CONNECT_NUKE_PLUGINS_PATH="
+path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-nuke\resource"
+
+f.write(path)
 f.write("\n")
-f.write(maya_plugin)
+
+path = r"set FTRACK_CONNECT_MAYA_PLUGINS_PATH="
+path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-maya\resource"
+
+f.write(path)
+f.write("\n")
