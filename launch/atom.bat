@@ -1,4 +1,4 @@
-call "%~dp0..\environments\conda_env"
+call "%~dp0..\environments\conda_env.bat"
 
 conda create -n atom -y python
 
