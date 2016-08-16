@@ -72,28 +72,13 @@ def setup(repo_path=None):
                          "#egg=ftrack-connect-maya"], cwd=repo_path)
 
     # setup env_nameironment variables
-    dst = os.path.join(env_root, "etc", "conda", "activate.d", "env_vars.bat")
+    dst = os.path.join(env_root, "etc", "conda", "activate.d",
+                       "ftrack_connect_env.bat")
 
     if not os.path.exists(os.path.dirname(dst)):
         os.makedirs(os.path.dirname(dst))
 
-    # check for existing env_nameironment file
-    f = None
-    if os.path.exists(dst):
-        # check of existing env_nameironment setup
-        f = open(dst, "r")
-        if "REM ftrack-connect\n" in f.read():
-            print "Skipping environment variables setup. Found existing setup."
-            return
-
-        f = open(dst, "a")
-        print "Found existing environment file. Appending to it."
-    else:
-        f = open(dst, "w")
-        print "Creating new environment file."
-
-    f.write("REM ftrack-connect")
-    f.write("\n")
+    f = open(dst, "w")
 
     path = r"set PYTHONPATH=%PYTHONPATH%;%~dp0..\..\..\..\..\..\pythonpath;"
     path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-nuke\source;"
