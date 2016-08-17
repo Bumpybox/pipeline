@@ -20,25 +20,15 @@ def setup(repo_path=None):
                          "git+https://github.com/pyblish/pyblish-base.git" +
                          "#egg=pyblish-base"], cwd=repo_path)
 
-    # install PyQt5 not in developer mode
+    # install pyblish-lite
     src = os.path.join(env_root, "Lib", "site-packages",
-                       "PyQt5")
+                       "pyblish-lite.egg-link")
     if os.path.exists(src):
-        print "Skipping existing module: \"PyQt5\""
-    else:
-        subprocess.call(["pip", "install",
-                         "git+https://github.com/pyqt/python-qt5.git"],
-                        cwd=repo_path)
-
-    # install pyblish-qml
-    src = os.path.join(env_root, "Lib", "site-packages",
-                       "pyblish-qml.egg-link")
-    if os.path.exists(src):
-        print "Skipping existing module: \"pyblish-qml\""
+        print "Skipping existing module: \"pyblish-lite\""
     else:
         subprocess.call(["pip", "install", "--editable",
-                         "git+https://github.com/pyblish/pyblish-qml.git" +
-                         "#egg=pyblish-qml"], cwd=repo_path)
+                         "git+https://github.com/pyblish/pyblish-lite.git" +
+                         "#egg=pyblish-lite"], cwd=repo_path)
 
     # install pyblish-nuke
     src = os.path.join(env_root, "Lib", "site-packages",
@@ -81,25 +71,13 @@ def setup(repo_path=None):
                          "#egg=pyblish-standalone"], cwd=repo_path)
     """
     # setup environment variables
-    dst = os.path.join(env_root, "etc", "conda", "activate.d", "env_vars.bat")
+    dst = os.path.join(env_root, "etc", "conda", "activate.d",
+                       "pyblish_env.bat")
 
     if not os.path.exists(os.path.dirname(dst)):
         os.makedirs(os.path.dirname(dst))
 
-    # check for existing environment file
-    f = None
-    if os.path.exists(dst):
-        # check of existing environment setup
-        f = open(dst, "r")
-        if "REM pyblish\n" in f.read():
-            return
-
-        f = open(dst, "a")
-    else:
-        f = open(dst, "w")
-
-    f.write("REM pyblish")
-    f.write("\n")
+    f = open(dst, "w")
 
     path = r"set PYTHONPATH=%PYTHONPATH%;"
     path += r"%~dp0..\..\..\..\..\..\pythonpath;"
@@ -139,8 +117,7 @@ def setup(repo_path=None):
 
 def launch():
 
-    # launching pyblish-qml without a console window
-    subprocess.call(["python", "-m", "pyblish_qml"])
+    pass
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog="pyblish_env")
