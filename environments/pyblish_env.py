@@ -111,13 +111,15 @@ def setup(repo_path=None):
     path += r"%~dp0..\..\..\..\..\..\src\pyblish-maya\pyblish_maya\pythonpath;"
     path += r"%~dp0..\..\..\..\..\..\environments\variables\pyblish_env"
     path += r"\pythonpath;"
-    path += r"%~dp0..\..\..\Lib\site-packages"
+    path += r"%~dp0..\..\..\Lib\site-packages;"
 
     f.write(path)
     f.write("\n")
 
     path = r"set NUKE_PATH=%NUKE_PATH%;"
     path += r"%~dp0..\..\..\..\..\..\src\pyblish-nuke\pyblish_nuke\nuke_path;"
+    path += r"%~dp0..\..\..\..\..\..\environments\variables\pyblish_env"
+    path += r"\nuke_path;"
 
     f.write(path)
     f.write("\n")
@@ -125,6 +127,9 @@ def setup(repo_path=None):
     path = r"set HOUDINI_PATH=%HOUDINI_PATH%;"
     path += r"%~dp0..\..\..\..\..\..\src\pyblish-houdini\pyblish_houdini"
     path += r"\houdini_path;"
+    path += r"%~dp0..\..\..\..\..\..\environments\variables\pyblish_env"
+    path += r"\houdini_path;"
+    path += r"^&"
 
     f.write(path)
     f.write("\n")

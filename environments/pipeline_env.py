@@ -60,31 +60,31 @@ def setup(repo_path=None):
 
     path = r"set PYTHONPATH=%PYTHONPATH%;"
     path += r"%~dp0..\..\..\..\..\..\src\pyblish-bumpybox;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-bumpybox\pyblish_bumpybox;"
+    path += r"%~dp0..\..\..\..\..\..\src\pyblish-bumpybox\pyblish_bumpybox"
+    path += r"\environment_variables\pythonpath;"
     path += r"%~dp0..\..\..\..\..\..\src\pipeline-schema;"
-    path += r"%~dp0..\..\..\..\..\..\src\lucidity\source"
-    path += r"\pythonpath;"
+    path += r"%~dp0..\..\..\..\..\..\src\lucidity\source;"
 
     f.write(path)
     f.write("\n")
 
     path = r"set NUKE_PATH=%NUKE_PATH%;"
     path += r"%~dp0..\..\..\..\..\..\src\pyblish-bumpybox\pyblish_bumpybox"
-    path += r"\nuke_path;"
+    path += r"\environment_variables\nuke_path;"
 
     f.write(path)
     f.write("\n")
 
     path = r"set HIERO_PLUGIN_PATH=%HIERO_PLUGIN_PATH%;"
     path += r"%~dp0..\..\..\..\..\..\src\pyblish-bumpybox\pyblish_bumpybox"
-    path += r"\hiero_plugin_path;"
+    path += r"\environment_variables\hiero_plugin_path;"
 
     f.write(path)
     f.write("\n")
 
     path = r"set HOUDINI_PATH=%HOUDINI_PATH%;"
     path += r"%~dp0..\..\..\..\..\..\src\pyblish-bumpybox\pyblish_bumpybox"
-    path += r"\houdini_path;^&"
+    path += r"\environment_variables\houdini_path;^&"
 
     f.write(path)
     f.write("\n")
