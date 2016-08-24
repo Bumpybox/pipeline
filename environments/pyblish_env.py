@@ -6,8 +6,11 @@ import argparse
 
 def setup(repo_path=None):
 
+    # if no repository path is specified,
+    # default to parent directory of pipeline repository
     if not repo_path:
-        repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        func = os.path.dirname
+        repo_path = func(func(func(os.path.abspath(__file__))))
     env_root = os.path.dirname(sys.executable)
 
     # install pyblish-base
@@ -80,33 +83,35 @@ def setup(repo_path=None):
     f = open(dst, "w")
 
     path = r"set PYTHONPATH=%PYTHONPATH%;"
-    path += r"%~dp0..\..\..\..\..\..\pythonpath;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-base;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-qml;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-nuke;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-maya;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-standalone;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-maya\pyblish_maya\pythonpath;"
-    path += r"%~dp0..\..\..\..\..\..\environments\variables\pyblish_env"
-    path += r"\pythonpath;"
-    path += r"%~dp0..\..\..\Lib\site-packages;"
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    path += os.path.join(root, "pythonpath") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-base") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-lite") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-nuke") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-maya") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-standalone") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-maya", "pythonpath") + ";"
+    path += os.path.join(root, "environments", "variables", "pyblish_env",
+                         "pythonpath") + ";"
+    path += os.path.join(env_root, "Lib", "site-packages") + ";"
 
     f.write(path)
     f.write("\n")
 
     path = r"set NUKE_PATH=%NUKE_PATH%;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-nuke\pyblish_nuke\nuke_path;"
-    path += r"%~dp0..\..\..\..\..\..\environments\variables\pyblish_env"
-    path += r"\nuke_path;"
+    path += os.path.join(repo_path, "src", "pyblish-nuke", "pyblish_nuke",
+                         "nuke_path") + ";"
+    path += os.path.join(root, "environments", "variables", "pyblish_env",
+                         "nuke_path") + ";"
 
     f.write(path)
     f.write("\n")
 
     path = r"set HOUDINI_PATH=%HOUDINI_PATH%;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-houdini\pyblish_houdini"
-    path += r"\houdini_path;"
-    path += r"%~dp0..\..\..\..\..\..\environments\variables\pyblish_env"
-    path += r"\houdini_path;"
+    path += os.path.join(repo_path, "src", "pyblish-houdini",
+                         "pyblish_houdini", "houdini_path") + ";"
+    path += os.path.join(root, "environments", "variables", "pyblish_env",
+                         "houdini_path") + ";"
     path += r"^&"
 
     f.write(path)

@@ -6,8 +6,11 @@ import argparse
 
 def setup(repo_path=None):
 
+    # if no repository path is specified,
+    # default to parent directory of pipeline repository
     if not repo_path:
-        repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        func = os.path.dirname
+        repo_path = func(func(func(os.path.abspath(__file__))))
     env_root = os.path.dirname(sys.executable)
 
     # install ftrack-hooks
@@ -60,38 +63,42 @@ def setup(repo_path=None):
     f = open(dst, "w")
 
     path = r"set FTRACK_CONNECT_PLUGIN_PATH=%FTRACK_CONNECT_PLUGIN_PATH%;"
-    path += r"%~dp0..\..\..\..\..\..\src\ftrack-hooks;"
+    path += os.path.join(repo_path, "src", "ftrack-hooks") + ";"
 
     f.write(path)
     f.write("\n")
 
     path = r"set PYTHONPATH=%PYTHONPATH%;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-bumpybox;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-bumpybox\pyblish_bumpybox"
-    path += r"\environment_variables\pythonpath;"
-    path += r"%~dp0..\..\..\..\..\..\src\pipeline-schema;"
-    path += r"%~dp0..\..\..\..\..\..\src\lucidity\source;"
+    path += os.path.join(repo_path, "src", "pyblish-bumpybox") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-bumpybox",
+                         "pyblish_bumpybox", "environment_variables",
+                         "pythonpath") + ";"
+    path += os.path.join(repo_path, "src", "pipeline-schema") + ";"
+    path += os.path.join(repo_path, "src", "lucidity", "source") + ";"
 
     f.write(path)
     f.write("\n")
 
     path = r"set NUKE_PATH=%NUKE_PATH%;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-bumpybox\pyblish_bumpybox"
-    path += r"\environment_variables\nuke_path;"
+    path += os.path.join(repo_path, "src", "pyblish-bumpybox",
+                         "pyblish_bumpybox", "environment_variables",
+                         "nuke_path") + ";"
 
     f.write(path)
     f.write("\n")
 
     path = r"set HIERO_PLUGIN_PATH=%HIERO_PLUGIN_PATH%;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-bumpybox\pyblish_bumpybox"
-    path += r"\environment_variables\hiero_plugin_path;"
+    path += os.path.join(repo_path, "src", "pyblish-bumpybox",
+                         "pyblish_bumpybox", "environment_variables",
+                         "hiero_plugin_path") + ";"
 
     f.write(path)
     f.write("\n")
 
     path = r"set HOUDINI_PATH=%HOUDINI_PATH%;"
-    path += r"%~dp0..\..\..\..\..\..\src\pyblish-bumpybox\pyblish_bumpybox"
-    path += r"\environment_variables\houdini_path;^&"
+    path += os.path.join(repo_path, "src", "pyblish-bumpybox",
+                         "pyblish_bumpybox", "environment_variables",
+                         "houdini_path") + ";^&"
 
     f.write(path)
     f.write("\n")

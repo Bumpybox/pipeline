@@ -1,14 +1,16 @@
 import os
 import subprocess
 import sys
-import platform
 import argparse
 
 
 def setup(repo_path=None):
 
+    # if no repository path is specified,
+    # default to parent directory of pipeline repository
     if not repo_path:
-        repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        func = os.path.dirname
+        repo_path = func(func(func(os.path.abspath(__file__))))
     env_root = os.path.dirname(sys.executable)
 
     # checking repository directory existence
@@ -71,7 +73,7 @@ def setup(repo_path=None):
                          "bitbucket.org/ftrack/ftrack-connect-maya.git" +
                          "#egg=ftrack-connect-maya"], cwd=repo_path)
 
-    # setup env_nameironment variables
+    # setup environment variables
     dst = os.path.join(env_root, "etc", "conda", "activate.d",
                        "ftrack_connect_env.bat")
 
@@ -80,35 +82,43 @@ def setup(repo_path=None):
 
     f = open(dst, "w")
 
-    path = r"set PYTHONPATH=%PYTHONPATH%;%~dp0..\..\..\..\..\..\pythonpath;"
-    path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-nuke\source;"
-    path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect\source;"
-    path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-foundry\source;"
-    path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-maya\source;"
-    path += r"%~dp0..\..\..\Lib\site-packages"
+    path = r"set PYTHONPATH=%PYTHONPATH%;"
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    path += os.path.join(root, "pythonpath") + ";"
+    path += os.path.join(repo_path, "src", "ftrack-connect", "source") + ";"
+    path += os.path.join(repo_path, "src", "ftrack-connect-nuke",
+                         "source") + ";"
+    path += os.path.join(repo_path, "src", "ftrack-connect-foundry",
+                         "source") + ";"
+    path += os.path.join(repo_path, "src", "ftrack-connect-maya",
+                         "source") + ";"
+    path += os.path.join(env_root, "Lib", "site-packages") + ";"
 
     f.write(path)
     f.write("\n")
 
     path = r"set FTRACK_CONNECT_PLUGIN_PATH=%FTRACK_CONNECT_path%;"
-    path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect;"
-    path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-foundry;"
-    path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-nuke;"
-    path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-maya;"
-    path += r"%~dp0..\..\..\..\..\..\environments\variables"
-    path += r"\ftrack_connect_env\ftrack_connect_plugin_path"
+    path += os.path.join(repo_path, "src", "ftrack-connect") + ";"
+    path += os.path.join(repo_path, "src", "ftrack-connect-nuke") + ";"
+    path += os.path.join(repo_path, "src", "ftrack-connect-foundry") + ";"
+    path += os.path.join(repo_path, "src", "ftrack-connect-maya") + ";"
+    path += os.path.join(root, "environments", "variables",
+                         "ftrack_connect_env",
+                         "ftrack_connect_plugin_path") + ";"
 
     f.write(path)
     f.write("\n")
 
     path = r"set FTRACK_CONNECT_NUKE_PLUGINS_PATH="
-    path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-nuke\resource"
+    path += os.path.join(repo_path, "src", "ftrack-connect-nuke",
+                         "resource") + ";"
 
     f.write(path)
     f.write("\n")
 
     path = r"set FTRACK_CONNECT_MAYA_PLUGINS_PATH="
-    path += r"%~dp0..\..\..\..\..\..\src\ftrack-connect-maya\resource"
+    path += os.path.join(repo_path, "src", "ftrack-connect-maya",
+                         "source") + ";"
 
     f.write(path)
     f.write("\n")
