@@ -98,11 +98,24 @@ def setup(repo_path=None):
     path = r"set HOUDINI_PATH=%HOUDINI_PATH%;"
     path += os.path.join(repo_path, "src", "pyblish-bumpybox",
                          "pyblish_bumpybox", "environment_variables",
-                         "houdini_path") + ";^&"
+                         "houdini_path") + ";"
 
     f.write(path)
     f.write("\n")
 
+    f.close()
+
+    # houdini path needs special treatment to force ^& to be at the end of
+    # the environment variable
+    dst = os.path.join(env_root, "etc", "conda", "activate.d",
+                       "z_houdini.bat")
+
+    if not os.path.exists(os.path.dirname(dst)):
+        os.makedirs(os.path.dirname(dst))
+
+    f = open(dst, "w")
+    path = r"set HOUDINI_PATH=%HOUDINI_PATH%;^&"
+    f.write(path)
     f.close()
 
 

@@ -92,6 +92,8 @@ def setup(repo_path=None):
                          "source") + ";"
     path += os.path.join(repo_path, "src", "ftrack-connect-maya",
                          "source") + ";"
+    path += os.path.join(repo_path, "src", "ftrack-connect-maya",
+                         "resource", "scripts") + ";"
     path += os.path.join(env_root, "Lib", "site-packages") + ";"
 
     f.write(path)
@@ -111,14 +113,14 @@ def setup(repo_path=None):
 
     path = r"set FTRACK_CONNECT_NUKE_PLUGINS_PATH="
     path += os.path.join(repo_path, "src", "ftrack-connect-nuke",
-                         "resource") + ";"
+                         "resource")
 
     f.write(path)
     f.write("\n")
 
     path = r"set FTRACK_CONNECT_MAYA_PLUGINS_PATH="
     path += os.path.join(repo_path, "src", "ftrack-connect-maya",
-                         "source") + ";"
+                         "resource")
 
     f.write(path)
     f.write("\n")

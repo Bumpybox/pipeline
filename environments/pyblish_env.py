@@ -89,8 +89,10 @@ def setup(repo_path=None):
     path += os.path.join(repo_path, "src", "pyblish-lite") + ";"
     path += os.path.join(repo_path, "src", "pyblish-nuke") + ";"
     path += os.path.join(repo_path, "src", "pyblish-maya") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-houdini") + ";"
     path += os.path.join(repo_path, "src", "pyblish-standalone") + ";"
-    path += os.path.join(repo_path, "src", "pyblish-maya", "pythonpath") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-maya", "pyblish_maya",
+                         "pythonpath") + ";"
     path += os.path.join(root, "environments", "variables", "pyblish_env",
                          "pythonpath") + ";"
     path += os.path.join(env_root, "Lib", "site-packages") + ";"
@@ -112,11 +114,23 @@ def setup(repo_path=None):
                          "pyblish_houdini", "houdini_path") + ";"
     path += os.path.join(root, "environments", "variables", "pyblish_env",
                          "houdini_path") + ";"
-    path += r"^&"
 
     f.write(path)
     f.write("\n")
 
+    f.close()
+
+    # houdini path needs special treatment to force ^& to be at the end of
+    # the environment variable
+    dst = os.path.join(env_root, "etc", "conda", "activate.d",
+                       "z_houdini.bat")
+
+    if not os.path.exists(os.path.dirname(dst)):
+        os.makedirs(os.path.dirname(dst))
+
+    f = open(dst, "w")
+    path = r"set HOUDINI_PATH=%HOUDINI_PATH%;^&"
+    f.write(path)
     f.close()
 
 
