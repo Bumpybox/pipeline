@@ -32,7 +32,7 @@ def setup(repo_path=None):
     else:
         subprocess.call(["pip", "install", "--editable",
                          "git+https://bitbucket.org/ftrack/ftrack-connect" +
-                         ".git#egg=ftrack-connect"], cwd=repo_path)
+                         ".git@0.1.27#egg=ftrack-connect"], cwd=repo_path)
 
         rcc_exe = os.path.join(env_root, "Lib", "site-packages", "PySide",
                                "pyside-rcc.exe")
@@ -71,7 +71,7 @@ def setup(repo_path=None):
     else:
         subprocess.call(["pip", "install", "--editable", "git+https://" +
                          "bitbucket.org/ftrack/ftrack-connect-maya.git" +
-                         "#egg=ftrack-connect-maya"], cwd=repo_path)
+                         "@0.2.3#egg=ftrack-connect-maya"], cwd=repo_path)
 
     # setup environment variables
     dst = os.path.join(env_root, "etc", "conda", "activate.d",
