@@ -62,17 +62,18 @@ def setup(repo_path=None):
         subprocess.call(["pip", "install", "--editable",
                          "git+https://github.com/pyblish/pyblish-houdini.git" +
                          "#egg=pyblish-houdini"], cwd=repo_path)
-    """
+
     # install pyblish-standalone
     src = os.path.join(env_root, "Lib", "site-packages",
                        "pyblish-standalone.egg-link")
     if os.path.exists(src):
         print "Skipping existing module: \"pyblish-standalone\""
     else:
-        subprocess.call(["pip", "install", "--editable", "git+https://" +
-                         "github.com/pyblish/pyblish-standalone.git" +
-                         "#egg=pyblish-standalone"], cwd=repo_path)
-    """
+        subprocess.call(["pip", "install", "--editable",
+                         "git+https://github.com/tokejepsen/" +
+                         "pyblish-standalone.git#egg=pyblish-standalone"],
+                         cwd=repo_path)
+
     # setup environment variables
     dst = os.path.join(env_root, "etc", "conda", "activate.d",
                        "pyblish_env.bat")
