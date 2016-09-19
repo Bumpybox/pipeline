@@ -6,7 +6,7 @@ call activate atom_env
 
 python "%~dp0pyblish_env.py" --setup
 python "%~dp0ftrack_connect_env.py" --setup
-REM python "%~dp0pipeline_env.py" --setup
+python "%~dp0pipeline_env.py" --setup
 python "%~dp0atom_env.py" --setup
 
 REM need to reactivate to get latest environment variables
