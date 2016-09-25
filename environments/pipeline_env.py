@@ -50,7 +50,7 @@ def setup(repo_path=None):
         print "Skipping existing module: \"lucidity\""
     else:
         subprocess.call(["pip", "install", "--editable",
-                         "git+https://gitlab.com/4degrees/lucidity.git" +
+                         "git+https://github.com/BigRoy/lucidity.git" +
                          "#egg=lucidity"], cwd=repo_path)
 
     # setup environment variables
