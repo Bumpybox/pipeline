@@ -72,7 +72,29 @@ def setup(repo_path=None):
         subprocess.call(["pip", "install", "--editable",
                          "git+https://github.com/tokejepsen/" +
                          "pyblish-standalone.git#egg=pyblish-standalone"],
+                        cwd=repo_path)
+
+    # install pyblish-aftereffects
+    src = os.path.join(env_root, "Lib", "site-packages",
+                       "pyblish-aftereffects.egg-link")
+    if os.path.exists(src):
+        print "Skipping existing module: \"pyblish-aftereffects\""
+    else:
+        subprocess.call(["pip", "install", "--editable",
+                         "git+https://github.com/tokejepsen/" +
+                         "pyblish-aftereffects.git#egg=pyblish-aftereffects"],
                          cwd=repo_path)
+
+    # install pyblish-aftereffects
+    src = os.path.join(env_root, "Lib", "site-packages",
+                       "pyblish-ftrack.egg-link")
+    if os.path.exists(src):
+        print "Skipping existing module: \"pyblish-ftrack\""
+    else:
+        subprocess.call(["pip", "install", "--editable",
+                         "git+https://github.com/pyblish/" +
+                         "pyblish-ftrack.git#egg=pyblish-ftrack"],
+                        cwd=repo_path)
 
     # setup environment variables
     dst = os.path.join(env_root, "etc", "conda", "activate.d",
@@ -92,6 +114,8 @@ def setup(repo_path=None):
     path += os.path.join(repo_path, "src", "pyblish-maya") + ";"
     path += os.path.join(repo_path, "src", "pyblish-houdini") + ";"
     path += os.path.join(repo_path, "src", "pyblish-standalone") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-aftereffects") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-ftrack") + ";"
     path += os.path.join(repo_path, "src", "pyblish-maya", "pyblish_maya",
                          "pythonpath") + ";"
     path += os.path.join(root, "environments", "variables", "pyblish_env",
