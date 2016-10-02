@@ -83,17 +83,28 @@ def setup(repo_path=None):
         subprocess.call(["pip", "install", "--editable",
                          "git+https://github.com/tokejepsen/" +
                          "pyblish-aftereffects.git#egg=pyblish-aftereffects"],
-                         cwd=repo_path)
+                        cwd=repo_path)
 
-    # install pyblish-aftereffects
+    # install pyblish-ftrack
     src = os.path.join(env_root, "Lib", "site-packages",
                        "pyblish-ftrack.egg-link")
     if os.path.exists(src):
         print "Skipping existing module: \"pyblish-ftrack\""
     else:
         subprocess.call(["pip", "install", "--editable",
-                         "git+https://github.com/pyblish/" +
+                         "git+https://github.com/tokejepsen/" +
                          "pyblish-ftrack.git#egg=pyblish-ftrack"],
+                        cwd=repo_path)
+
+    # install pyblish-deadline
+    src = os.path.join(env_root, "Lib", "site-packages",
+                       "pyblish-deadline.egg-link")
+    if os.path.exists(src):
+        print "Skipping existing module: \"pyblish-deadline\""
+    else:
+        subprocess.call(["pip", "install", "--editable",
+                         "git+https://github.com/tokejepsen/" +
+                         "pyblish-deadline.git#egg=pyblish-deadline"],
                         cwd=repo_path)
 
     # setup environment variables
@@ -116,6 +127,7 @@ def setup(repo_path=None):
     path += os.path.join(repo_path, "src", "pyblish-standalone") + ";"
     path += os.path.join(repo_path, "src", "pyblish-aftereffects") + ";"
     path += os.path.join(repo_path, "src", "pyblish-ftrack") + ";"
+    path += os.path.join(repo_path, "src", "pyblish-deadline") + ";"
     path += os.path.join(repo_path, "src", "pyblish-maya", "pyblish_maya",
                          "pythonpath") + ";"
     path += os.path.join(root, "environments", "variables", "pyblish_env",
