@@ -4,7 +4,7 @@ import sys
 import argparse
 
 
-def setup(repo_path=None):
+def setup(repo_path=None, debug=False):
 
     # if no repository path is specified,
     # default to parent directory of pipeline repository
@@ -126,22 +126,12 @@ def setup(repo_path=None):
     f.write("\n")
 
 
-def launch():
+def launch(debug=False):
 
-    # launching ftrack-connect without a console window
-    kwargs = {}
-    """
-    if platform.system() == 'Windows':
-        CREATE_NEW_PROCESS_GROUP = 0x00000200
-        DETACHED_PROCESS = 0x00000008
-        kwargs.update(creationflags=DETACHED_PROCESS |
-                      CREATE_NEW_PROCESS_GROUP)
-    elif sys.version_info < (3, 2):  # assume posix
-        kwargs.update(preexec_fn=os.setsid)
-    else:  # Python 3.2+ and Unix
-        kwargs.update(start_new_session=True)
-    """
-    subprocess.call(["python", "-m", "ftrack_connect"], **kwargs)
+    if debug:
+        subprocess.call(["python", "-m", "ftrack_connect"])
+    else:
+        subprocess.call(["pythonw", "-m", "ftrack_connect"])
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog="ftrack_connect_env")
@@ -149,10 +139,13 @@ if __name__ == "__main__":
                         help="Setup the environment.")
     parser.add_argument("--launch", dest="launch", action="store_true",
                         help="Launch any required processes.")
+    parser.add_argument("--debug", dest="debug", action="store_true",
+                        help="Verbose output.")
 
     kwargs = parser.parse_args(sys.argv[1:])
+
     if kwargs.setup:
-        setup()
+        setup(debug=kwargs.debug)
 
     if kwargs.launch:
-        launch()
+        launch(debug=kwargs.debug)
